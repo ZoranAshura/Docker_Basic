@@ -1,0 +1,7 @@
+FROM ubuntu:22.04
+HEALTHCHECK --interval=35s --timeout=4s CMD ["nginx", "-t"]
+RUN apt-get -y update && apt-get -y install nginx && apt-get -y install gcc && apt-get -y install libfcgi-dev && rm -rf /var/lib/apt/lists # && useradd -ms /bin/bash newuser#USER newuser
+#WORKDIR /home/newuser
+COPY files/default /etc/nginx/sites-available/default
+COPY files/a.out /home/
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
